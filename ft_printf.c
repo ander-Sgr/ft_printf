@@ -18,10 +18,10 @@ int	check_format(const char *format, void *args)
 
 	len_format = 0;
 	if (format[len_format] == 'c')
-    {
-		len_format += ft_putchar((int *)args);
-        len_format += 1;
-    }
+	{
+		len_format += ft_putchar(*(char *)args);
+		len_format += 1;
+	}
 	return (len_format);
 }
 
@@ -39,7 +39,10 @@ int	ft_printf(const char *format, ...)
 		{
 			if (ft_strchr("cspdiuxX", format[i]))
 			{
+				len_format += check_format(&format[i], va_arg(args, void *));
 			}
+			else
+				len_format += ft_putchar(format[i]);
 		}
 		len_format += ft_putchar(format[i]);
 		i++;
@@ -50,5 +53,5 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("test");
+	ft_printf("test %c", 'a');
 }
