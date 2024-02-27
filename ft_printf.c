@@ -11,16 +11,16 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdio.h>
 
-int	check_format(const char *format, void *args)
+int	check_format(const char *format, va_list args)
 {
 	int	len_format;
 
 	len_format = 0;
-	if (format[len_format] == 'c')
+	if (*format == 'c')
 	{
-		len_format += ft_putchar(*(char *)args);
-		len_format += 1;
+		len_format += ft_putchar(va_arg(args, int));
 	}
 	return (len_format);
 }
@@ -32,20 +32,28 @@ int	ft_printf(const char *format, ...)
 	va_list	args;
 
 	i = 0;
+	len_format = 0;
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			if (ft_strchr("cspdiuxX", format[i]))
+			if (ft_strchr("cspdiuxX", format[i + 1]))
 			{
-				len_format += check_format(&format[i], va_arg(args, void *));
+				len_format += check_format(&format[i + 1], args);
+				i = i + 2;
 			}
 			else
+			{
 				len_format += ft_putchar(format[i]);
+				i++;
+			}
 		}
-		len_format += ft_putchar(format[i]);
-		i++;
+		else
+		{
+			len_format += ft_putchar(format[i]);
+			i++;
+		}
 	}
 	va_end(args);
 	return (len_format);
@@ -53,5 +61,8 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("test %c", 'a');
+	int	total_len;
+
+	total_len = ft_printf("test %c %c %c", 'a', 'b', 'c');
+	printf("\nprinted my func printf %d:\n", total_len);
 }
