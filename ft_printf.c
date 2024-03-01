@@ -41,19 +41,14 @@ int	ft_printf(const char *format, ...)
 			if (ft_strchr("cspdiuxX", format[i + 1]))
 			{
 				len_format += check_format(&format[i + 1], args);
-				i = i + 2;
-			}
-			else
-			{
-				len_format += ft_putchar(format[i]);
 				i++;
 			}
+			else
+				len_format += ft_putchar(format[i]);
 		}
 		else
-		{
 			len_format += ft_putchar(format[i]);
-			i++;
-		}
+		i++;
 	}
 	va_end(args);
 	return (len_format);
