@@ -22,6 +22,10 @@ int	check_format(const char *format, va_list args)
 	{
 		len_format += ft_putchar(va_arg(args, int));
 	}
+	else if (*format == 's')
+	{
+		len_format += ft_putstring(va_arg(args, char*));
+	}
 	return (len_format);
 }
 
@@ -36,15 +40,10 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && ft_strchr("cspdiuxX", format[i + 1]))
 		{
-			if (ft_strchr("cspdiuxX", format[i + 1]))
-			{
-				len_format += check_format(&format[i + 1], args);
-				i++;
-			}
-			else
-				len_format += ft_putchar(format[i]);
+			len_format += check_format(&format[i + 1], args);
+			i++;
 		}
 		else
 			len_format += ft_putchar(format[i]);
@@ -56,8 +55,10 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int	total_len;
 
-	total_len = ft_printf("test %c %c %c", 'a', 'b', 'c');
-	printf("\nprinted my func printf %d:\n", total_len);
+	int total_len_str;
+
+	total_len_str = ft_printf("hola mundo %s print char %c", "que tal a todos", 'a');
+	printf("\ntotal len str  %d\n", total_len_str);
 }
+
