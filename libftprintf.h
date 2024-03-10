@@ -18,5 +18,7 @@
 int	ft_printf(const char *format, ...);
 int	ft_putchar(char c);
 int	ft_putstring(char *str);
+int	ft_putint(int nbr);
+// int	ft_putpointer(void *);
 
 #endif

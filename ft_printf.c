@@ -19,13 +19,11 @@ int	check_format(const char *format, va_list args)
 
 	len_format = 0;
 	if (*format == 'c')
-	{
 		len_format += ft_putchar(va_arg(args, int));
-	}
 	else if (*format == 's')
-	{
-		len_format += ft_putstring(va_arg(args, char*));
-	}
+		len_format += ft_putstring(va_arg(args, char *));
+	else if (*format == 'd' || *format == 'i')
+		len_format += ft_putint(va_arg(args, int));
 	return (len_format);
 }
 
@@ -55,10 +53,12 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
+	int	total_len_str;
 
-	int total_len_str;
+	
+	total_len_str = ft_printf("%d", 2);
 
-	total_len_str = ft_printf("hola mundo %s print char %c", "que tal a todos", 'a');
 	printf("\ntotal len str  %d\n", total_len_str);
-}
 
+	printf("test %d", -12); 
+}
