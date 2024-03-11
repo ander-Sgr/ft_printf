@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_putint(int nbr)
+int	ft_put_integer(int nbr)
 {
 	int		number_len;
 	char	*ptr_nbr;

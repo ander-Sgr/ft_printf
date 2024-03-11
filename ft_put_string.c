@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	ft_putstring(char *str)
+int	ft_put_string(char *str)
 {
 	int	len_str;
-	
+
 	len_str = ft_strlen(str);
 	ft_putstr_fd(str, 1);
 	return ((int)len_str);
