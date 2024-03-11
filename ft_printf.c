@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
+#include <limits.h>
 #include <stdio.h>
 
 int	check_format(const char *format, va_list args)
@@ -19,11 +20,13 @@ int	check_format(const char *format, va_list args)
 
 	len_format = 0;
 	if (*format == 'c')
-		len_format += ft_putchar(va_arg(args, int));
+		len_format += ft_put_char(va_arg(args, int));
 	else if (*format == 's')
-		len_format += ft_putstring(va_arg(args, char *));
+		len_format += ft_put_string(va_arg(args, char *));
 	else if (*format == 'd' || *format == 'i')
-		len_format += ft_putint(va_arg(args, int));
+		len_format += ft_put_integer(va_arg(args, int));
+	else if (*format == 'u')
+		len_format += ft_put_unsigned(va_arg(args, unsigned));
 	return (len_format);
 }
 
@@ -44,21 +47,56 @@ int	ft_printf(const char *format, ...)
 			i++;
 		}
 		else
-			len_format += ft_putchar(format[i]);
+			len_format += ft_put_char(format[i]);
 		i++;
 	}
 	va_end(args);
 	return (len_format);
 }
 
+void	test_u(void)
+{
+	int x, y;
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: %%u -----------\n\n");
+	printf("Testing: (\"\\t%%u\\n\", 42)\n");
+	x += printf("  Or\t:\t%u\n", 42);
+	y += ft_printf("  Ft\t:\t%u\n", 42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\tThe number %%u is visible.\\n\", 5671)\n");
+	x += printf("  Or\t:\tThe number %u is visible.\n", 5671);
+	y += ft_printf("  Ft\t:\tThe number %u is visible.\n", 5671);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", INT_MAX)\n");
+	x += printf("  Or\t:\t%u\n", INT_MAX);
+	y += ft_printf("  Ft\t:\t%u\n", INT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", INT_MIN)\n");
+	x += printf("  Or\t:\t%u\n", INT_MIN);
+	y += ft_printf("  Ft\t:\t%u\n", INT_MIN);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", -42)\n");
+	x += printf("  Or\t:\t%u\n", -42);
+	y += ft_printf("  Ft\t:\t%u\n", -42);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+	x = 0;
+	y = 0;
+	printf("Testing: (\"\\t%%u\\n\", UINT_MAX)\n");
+	x += printf("  Or\t:\t%u\n", UINT_MAX);
+	y += ft_printf("  Ft\t:\t%u\n", UINT_MAX);
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+}
+
 int	main(void)
 {
-	int	total_len_str;
-
-	
-	total_len_str = ft_printf("%d", 2);
-
-	printf("\ntotal len str  %d\n", total_len_str);
-
-	printf("test %d", -12); 
+	test_u();
 }
