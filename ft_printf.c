@@ -14,7 +14,7 @@
 #include <limits.h>
 #include <stdio.h>
 
-int	check_format(const char *format, va_list args)
+static int	check_format(const char *format, va_list args)
 {
 	int	len_format;
 
@@ -41,7 +41,12 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%' && ft_strchr("cspdiuxX", format[i + 1]))
+		if (format[i] == '%' && format[i + 1] == '%')
+		{
+			len_format += ft_put_char('%');
+			i++;
+		}
+		else if (format[i] == '%' && ft_strchr("cspdiuxX", format[i + 1]))
 		{
 			len_format += check_format(&format[i + 1], args);
 			i++;
@@ -96,7 +101,22 @@ void	test_u(void)
 	printf("Printf = %d, ft_printf = %d\n\n", x, y);
 }
 
+void	test_percent(void)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	printf("\n----------- TEST: percent -----------\n\n");
+	printf("Testing: (\"\\t%%%%\\n\")\n");
+	x += printf("  Or\t:\t%%\n");
+	y += ft_printf("  Ft\t:\t%%\n");
+	printf("Printf = %d, ft_printf = %d\n\n", x, y);
+}
+
 int	main(void)
 {
 	test_u();
+	test_percent();
 }
