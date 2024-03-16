@@ -32,11 +32,20 @@ static char	*ft_convert_to_arr(unsigned int nbr, int size)
 	int		i;
 	char	*arr_int;
 
+	if (nbr == 0)
+	{
+		arr_int = (char *)malloc(2 * sizeof(char));
+		if (arr_int == NULL)
+			return (NULL);
+		arr_int[0] = '0';
+		arr_int[1] = '\0';
+		return (arr_int);
+	}
+	i = size - 1;
 	arr_int = (char *)malloc((size + 1) * sizeof(char));
 	if (arr_int == NULL)
 		return (NULL);
-	i = size - 1;
-	while (nbr != 0)
+	while (nbr != 0 && i >= 0)
 	{
 		arr_int[i] = '0' + (nbr % 10);
 		nbr = nbr / 10;
@@ -46,7 +55,7 @@ static char	*ft_convert_to_arr(unsigned int nbr, int size)
 	return (arr_int);
 }
 
-char	*ft_utoa(unsigned int n)
+static char	*ft_utoa(unsigned int n)
 {
 	unsigned int	total_digits;
 	char			*arr_int;
@@ -62,9 +71,8 @@ int	ft_put_unsigned(unsigned int nbr)
 	int		len;
 
 	str = ft_utoa(nbr);
-	if (str == NULL)
-		return (-1);
-	len = write(1, str, ft_count_digits(nbr));
+	len = (int)ft_strlen(str);
+	ft_putstr_fd(str, 1);
 	free(str);
 	return (len);
 }
