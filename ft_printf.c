@@ -23,10 +23,12 @@ static int	check_format(const char *format, va_list args)
 		len_format += ft_put_char(va_arg(args, int));
 	else if (*format == 's')
 		len_format += ft_put_string(va_arg(args, char *));
+	else if (*format == 'p')
+		len_format += ft_put_pointer(va_arg(args, void *));
 	else if (*format == 'd' || *format == 'i')
 		len_format += ft_put_integer(va_arg(args, int));
 	else if (*format == 'u')
-		len_format += ft_put_unsigned(va_arg(args, unsigned));
+		len_format += ft_put_unsigned(va_arg(args, unsigned int));
 	return (len_format);
 }
 
@@ -57,66 +59,4 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (len_format);
-}
-
-void	test_u(void)
-{
-	int x, y;
-	x = 0;
-	y = 0;
-	printf("\n----------- TEST: %%u -----------\n\n");
-	printf("Testing: (\"\\t%%u\\n\", 42)\n");
-	x += printf("  Or\t:\t%u\n", 42);
-	y += ft_printf("  Ft\t:\t%u\n", 42);
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-	x = 0;
-	y = 0;
-	printf("Testing: (\"\\tThe number %%u is visible.\\n\", 5671)\n");
-	x += printf("  Or\t:\tThe number %u is visible.\n", 5671);
-	y += ft_printf("  Ft\t:\tThe number %u is visible.\n", 5671);
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-	x = 0;
-	y = 0;
-	printf("Testing: (\"\\t%%u\\n\", INT_MAX)\n");
-	x += printf("  Or\t:\t%u\n", INT_MAX);
-	y += ft_printf("  Ft\t:\t%u\n", INT_MAX);
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-	x = 0;
-	y = 0;
-	printf("Testing: (\"\\t%%u\\n\", INT_MIN)\n");
-	x += printf("  Or\t:\t%u\n", INT_MIN);
-	y += ft_printf("  Ft\t:\t%u\n", INT_MIN);
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-	x = 0;
-	y = 0;
-	printf("Testing: (\"\\t%%u\\n\", -42)\n");
-	x += printf("  Or\t:\t%u\n", -42);
-	y += ft_printf("  Ft\t:\t%u\n", -42);
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-	x = 0;
-	y = 0;
-	printf("Testing: (\"\\t%%u\\n\", UINT_MAX)\n");
-	x += printf("  Or\t:\t%u\n", UINT_MAX);
-	y += ft_printf("  Ft\t:\t%u\n", UINT_MAX);
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-}
-
-void	test_percent(void)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	printf("\n----------- TEST: percent -----------\n\n");
-	printf("Testing: (\"\\t%%%%\\n\")\n");
-	x += printf("  Or\t:\t%%\n");
-	y += ft_printf("  Ft\t:\t%%\n");
-	printf("Printf = %d, ft_printf = %d\n\n", x, y);
-}
-
-int	main(void)
-{
-	test_u();
-	test_percent();
 }

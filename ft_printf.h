@@ -15,12 +15,13 @@
 
 # include "./libft/libft.h"
 # include <stdarg.h>
+# include <unistd.h>
 
 int	ft_printf(const char *format, ...);
 int	ft_put_char(char c);
-int	ft_put_string(char *str);
+int	ft_put_string(char *ft_put_charstr);
 int	ft_put_integer(int nbr);
 int	ft_put_unsigned(unsigned int nbr);
-// int	ft_putpointer(void *);
+int	ft_put_pointer(void *ptr);
 
 #endif
