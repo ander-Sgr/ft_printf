@@ -22,7 +22,7 @@ int	ft_put_pointer(void *ptr)
 		len_result += write(1, "(nil)", 5);
 	else
 	{
-		result_hex = ft_convert_hex(ptr, ' ');
+		result_hex = ft_convert_ptr(ptr);
 		len_result += write(1, "0x", 2);
 		len_result += ft_put_string(result_hex);
 		free(result_hex);

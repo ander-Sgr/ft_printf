@@ -16,6 +16,11 @@ int	ft_put_string(char *str)
 {
 	int	len_str;
 
+	if (str == NULL)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
 	len_str = ft_strlen(str);
 	ft_putstr_fd(str, 1);
 	return ((int)len_str);

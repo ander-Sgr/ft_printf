@@ -40,14 +40,12 @@ static char	*ft_verify_format(char flag)
 	return (hex_format);
 }
 
-char	*ft_convert_hex(void *ptr, char flag)
+static char	*ft_convert_to_hex(unsigned long long number, char flag)
 {
-	char			*hex;
-	unsigned int	number;
-	char			*result_hex;
-	int				i;
+	char	*hex;
+	char	*result_hex;
+	int		i;
 
-	number = (unsigned int)ptr;
 	hex = ft_verify_format(flag);
 	result_hex = (char *)malloc(sizeof(char) * 17);
 	if (result_hex == NULL)
@@ -67,4 +65,17 @@ char	*ft_convert_hex(void *ptr, char flag)
 	result_hex[i] = '\0';
 	ft_result_hex(result_hex);
 	return (result_hex);
+}
+
+char	*ft_convert_ptr(void *ptr)
+{
+	unsigned long long	number;
+
+	number = (unsigned long long)ptr;
+	return (ft_convert_to_hex(number, ' '));
+}
+
+char	*ft_convert_hex(unsigned int value, char flag)
+{
+	return (ft_convert_to_hex(value, flag));
 }

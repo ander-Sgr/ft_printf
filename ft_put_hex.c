@@ -12,14 +12,14 @@
 
 #include "ft_printf.h"
 
-int	ft_put_hexadecimal(void *ptr, char flag)
+int	ft_put_hexadecimal(unsigned int ptr, char flag)
 {
 	int		len_result;
 	char	*result_hex;
 
 	len_result = 0;
-	if (ptr == NULL)
-		return (0);
+	if (ptr == 0)
+		len_result += write(1, "0", 1);
 	else
 	{
 		result_hex = ft_convert_hex(ptr, flag);
