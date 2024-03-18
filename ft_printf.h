@@ -17,14 +17,14 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-int	ft_printf(const char *format, ...);
-int	ft_put_char(char c);
-int	ft_put_string(char *ft_put_charstr);
-int	ft_put_integer(int nbr);
-int	ft_put_unsigned(unsigned int nbr);
-char *ft_convert_hex(void *ptr, char flag);
-int	ft_put_pointer(void *ptr);
-int ft_put_hexadecimal(void *ptr, char flag);
-
+int		ft_printf(const char *format, ...);
+int		ft_put_char(char c);
+int		ft_put_string(char *ft_put_charstr);
+int		ft_put_integer(int nbr);
+int		ft_put_unsigned(unsigned int nbr);
+int		ft_put_pointer(void *ptr);
+int		ft_put_hexadecimal(unsigned int ptr, char flag);
+char	*ft_convert_ptr(void *ptr);
+char	*ft_convert_hex(unsigned int value, char flag);
 
 #endif
