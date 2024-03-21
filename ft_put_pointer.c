@@ -12,6 +12,14 @@
 
 #include "ft_printf.h"
 
+static char	*ft_convert_ptr(void *ptr)
+{
+	unsigned long long	number;
+
+	number = (unsigned long long)ptr;
+	return (ft_convert_to_hex(number, ' '));
+}
+
 int	ft_put_pointer(void *ptr)
 {
 	int		len_result;

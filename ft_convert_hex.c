@@ -40,7 +40,7 @@ static char	*ft_verify_format(char flag)
 	return (hex_format);
 }
 
-static char	*ft_convert_to_hex(unsigned long long number, char flag)
+char	*ft_convert_to_hex(unsigned long long number, char flag)
 {
 	char	*hex;
 	char	*result_hex;
@@ -65,17 +65,4 @@ static char	*ft_convert_to_hex(unsigned long long number, char flag)
 	result_hex[i] = '\0';
 	ft_result_hex(result_hex);
 	return (result_hex);
-}
-
-char	*ft_convert_ptr(void *ptr)
-{
-	unsigned long long	number;
-
-	number = (unsigned long long)ptr;
-	return (ft_convert_to_hex(number, ' '));
-}
-
-char	*ft_convert_hex(unsigned int value, char flag)
-{
-	return (ft_convert_to_hex(value, flag));
 }

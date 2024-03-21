@@ -12,6 +12,11 @@
 
 #include "ft_printf.h"
 
+static char	*ft_convert_hex(unsigned int value, char flag)
+{
+	return (ft_convert_to_hex(value, flag));
+}
+
 int	ft_put_hexadecimal(unsigned int ptr, char flag)
 {
 	int		len_result;
