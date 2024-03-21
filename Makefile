@@ -10,32 +10,41 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME=libftprintf.a
-LIBFT=libft/libft.a
-SRCS = $(wildcard *.c)
-OBJS=$(SRCS:.c=.o)
+NAME = libftprintf.a
+LIBFTNAME = libft.a
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
+LIBFTDIR = ./libft
+SRCS = ft_printf.c \
+       ft_put_char.c \
+       ft_put_hex.c \
+       ft_put_integer.c \
+       ft_put_pointer.c \
+       ft_put_string.c \
+       ft_put_unsigned.c \
+       ft_convert_hex.c
 
-
-CC=gcc
-CFLAGS=-Wall -Wextra -Werror -g
-
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C ./libft
-	cp libft/libft.a $(NAME)
-	ar rcs $@ $(OBJS)
+makelibft:
+	@make -C $(LIBFTDIR)
+	@cp $(LIBFTDIR)/$(LIBFTNAME) .
+	@mv $(LIBFTNAME) $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^
+$(NAME): makelibft $(OBJS)
+	@ar -r $(NAME) $(OBJS)
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
-
+	@rm -f $(OBJS)
+	@cd $(LIBFTDIR) && make clean
+	
 fclean: clean
-	rm -f $(NAME)
-
+	@rm -f $(NAME)
+	@cd $(LIBFTDIR) && make fclean
+	
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+
+.PHONY: all clean fclean re
