@@ -28,23 +28,25 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-makelibft:
+$(NAME): makelibs $(OBJS)
+	@ar -r $(NAME) $(OBJS)
+
+makelibs:
 	@make -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFTNAME) .
 	@mv $(LIBFTNAME) $(NAME)
 
-$(NAME): makelibft $(OBJS)
-	@ar -r $(NAME) $(OBJS)
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $^
 
 clean:
 	@rm -f $(OBJS)
-	@cd $(LIBFTDIR) && make clean
+	@make -C $(LIBFTDIR) clean
 	
 fclean: clean
 	@rm -f $(NAME)
-	@cd $(LIBFTDIR) && make fclean
+	@make -C $(LIBFTDIR) fclean
 	
 re: fclean all
-
 
 .PHONY: all clean fclean re
